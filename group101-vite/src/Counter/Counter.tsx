@@ -1,51 +1,22 @@
 import React from "react";
-
-type CounterProps = {
-  initialCount?: number;
-};
-
-interface ICounterProps {
-  initialCount?: number;
-}
+import { useState } from "react";
+import { IncrementButton } from "./IncrementButton";
+import { ResetButton } from "./ResetButton";
+import type { CounterProps } from "./ICounter";
 
 const dataTestId: string = "Counter";
-
-
-export const Counter = ({ initialCount = 0 }: CounterProps) => {
-    const [count, setCount] = React.useState(initialCount);
-    // llamadas a APIs
-    // constantes terciarias
-
-    // funciones
-    function reset() {
-        setCount(0);
-    }
-
-
-
+const Counter = ({ initialCount = 0 }: CounterProps) => {
+    const [count, setCount] = useState<number>(initialCount);
     return (
         <div> 
             <header>
-                <h1 data-testid={`${dataTestId}-Header`}>This is a COUNTERR</h1>
+                <h1 data-testid={`${dataTestId}-Header`}>This is a Counter</h1>
             </header>
             <div data-testid={`${dataTestId}-Value`}>{count}</div>
-            <div>
-                <button
-                name="reset-button"
-                data-testid={`${dataTestId}-Reset-Button`} 
-                onClick={() => reset()}
-                >
-                    Reset
-
-                </button>
-
-                <button
-                data-testid={`${dataTestId}-Increment-Button`}
-                onClick={() => setCount(count + 1)}
-                >
-                    Increment
-                </button>
-            </div>
+            <ResetButton dataTestId={dataTestId} setCount={setCount}/>
+            <IncrementButton dataTestId={dataTestId} setCount={setCount}/>
         </div>
     );
-}
+};
+
+export { Counter };
