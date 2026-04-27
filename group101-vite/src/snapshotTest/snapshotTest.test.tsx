@@ -15,4 +15,20 @@ describe("Snapshot Testing Example", () => {
     test("Generates a greeting with a snapshot", () => {
         expect(generateGreeting("Jesus")).toMatchSnapshot();
     });
+
+    test("Generates inlineSnapshot", () => {
+        expect(generateGreeting("Jesus")).toMatchInlineSnapshot(`
+          {
+            "message": "Hello, Jesus!",
+            "timestamp": null,
+            "version": 2,
+          }
+        `);
+    });
+
+    test("Throws on invalid input", () => {
+        expect(() => parseFloat("")).toThrowErrorMatchingInlineSnapshot(
+            "[Error: unexpected end of input at position 0]"
+        );
+    });
 });
