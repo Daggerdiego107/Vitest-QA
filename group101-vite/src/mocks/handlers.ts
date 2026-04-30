@@ -12,6 +12,16 @@ export const handlers = [
   http.get("https://api.example.com/hello", ({ request }) => {
     console.log("hello request: ", request);
   }),
+  http.get<{ id?: string }>("/books/:id", ({ params }) => {
+    if (params.id === "abc123") {
+        return new HttpResponse( {error: "Unauthorized access"}, {status:404})
+    }
+    return HttpResponse.json({
+        id: params.id,
+        title: "The Lord of The Rings",
+    });
+  })
+  ,
   graphql.query("ListMovies", () => {
     return HttpResponse.json({
       data: {
